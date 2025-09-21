@@ -1,22 +1,31 @@
-package com.exp1_s3.tienda_mascotas.ProductSale;
+package com.exp1_s3.tienda_mascotas.ProductSale.model;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
-public class ProductSale {
+@Entity
+@Table(name = "VENTAS_PRODUCTOS")
+public class ProductSaleModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private int price;
     private int amount;
     private String description;
-    private LocalDate date;
+    @Column(name = "SALE_DATE") 
+    private LocalDate saleDate;
 
-    public ProductSale(int id, String name, int price, int amount, String description, LocalDate date) {
+    public ProductSaleModel() {
+    }
+
+    public ProductSaleModel(int id, String name, int price, int amount, String description, LocalDate saleDate) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.amount = amount;
         this.description = description;
-        this.date = date;
+        this.saleDate = saleDate;
     }
 
     public int getId() {
@@ -39,10 +48,11 @@ public class ProductSale {
         return description;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getSaleDate() {
+        return saleDate;
     }
 
+    @Transient
     public double getTotal() {
         return price * amount;
     }
